@@ -16,3 +16,10 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('locations', 'LocationController@index');
+
+Route::post('add', 'LocationController@create');
+
+Route::get('delete/{id}', 'LocationController@destroy');
