@@ -71,7 +71,9 @@ SLUG: Es el nombre propio de la entidad. (ARGENTINA,VENEZUELA,BUENOS AIRES, WASH
 | 6  | 5  | CONDADO  | LOS ANGELES  |
 |  7 | 6  | CIUDAD  | PASADENA  |
 
+Así se vería este arbol de ejemplo
 
+![Alt text](/public/img/locationsTree.png)
 
 ## 2. Mostrar todas las localizaciónes.
 
