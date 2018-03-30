@@ -23,3 +23,7 @@ Route::get('locations', 'LocationController@index');
 Route::post('add', 'LocationController@create');
 
 Route::get('delete/{id}', 'LocationController@destroy');
+
+Route::get('search/{slug}', 'LocationController@search');
+
+Route::get('childs/{id}', 'LocationController@getChilds');

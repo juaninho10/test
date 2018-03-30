@@ -58,9 +58,9 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function getChilds($id)
     {
-        //
+        return Location::parent($id)->renderAsArray();
     }
 
     /**
@@ -70,9 +70,12 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function search($slug)
     {
-        //
+       
+        $result = Location::like('slug', $slug)->get();
+        
+        return $result;
     }
 
     /**
