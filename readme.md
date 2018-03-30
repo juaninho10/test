@@ -39,10 +39,6 @@ Ejecutar las Migraciones y arrancar el servidor http://localhost:8000/
 
 ## API
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
 El proyecto consta de 6 rutas de las cuales 2 necesitan autenticación.
 
 ## 1. Agregar una localización.
