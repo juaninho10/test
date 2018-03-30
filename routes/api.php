@@ -17,12 +17,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware(['jwt.auth'])->group(function(){
+	
+	Route::post('add', 'LocationController@create');
+
+	Route::get('delete/{id}', 'LocationController@destroy');
+
+
+});
+
+Route::post('login', 'AuthenticateController@authenticate');
 
 Route::get('locations', 'LocationController@index');
-
-Route::post('add', 'LocationController@create');
-
-Route::get('delete/{id}', 'LocationController@destroy');
 
 Route::get('search/{slug}', 'LocationController@search');
 

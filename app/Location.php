@@ -17,8 +17,15 @@ class Location extends \Eloquent {
 
 	public  function scopeLike($query, $field, $value){
 
-		
         return $query->where($field, 'LIKE', "%$value%");
 	}
 
+	public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = strtoupper($value);
+    }
+    public function setSlugAttribute($value)
+    {
+        $this->attributes['slug'] = strtoupper($value);
+    }
 }

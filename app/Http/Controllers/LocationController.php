@@ -16,8 +16,11 @@ class LocationController extends Controller
     {
         $locations = Location::nested()->get();
 
-        dd($locations);
-        //return $locations;
+        if(!$locations){
+            return response()->json(['code' => 204, 'message' => 'No hay Locaciones'], 204);
+        }
+        return response()->json(['data'=> $locations], 200);
+
     }
 
     /**
@@ -27,29 +30,18 @@ class LocationController extends Controller
      */
     public function create(Request $request)
     {
-        Location::create($request->all());
-    }
+        
+        $existe = Location::where("slug","=", $request->slug)->first();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        if($existe){
+            return response()->json(['code' => 409, 'message' => 'Ya existe la Locación'], 409);
+        }
+        else{
+                $locations = Location::create($request->all());
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+                return response()->json(['data' => $locations, 'message' => 'Locación Creada con exito', 'code' => 200], 200);
+        }
+
     }
 
     /**
@@ -60,7 +52,19 @@ class LocationController extends Controller
      */
     public function getChilds($id)
     {
-        return Location::parent($id)->renderAsArray();
+        $existe = Location::where("id","=", $id)->first();
+
+        if($existe){        
+                 $childs = Location::parent($id)->renderAsArray();
+                    if(!sizeof($childs)){
+                        return response()->json(['code' => 409, 'message' => 'Esta Locación no tiene hijos'], 409);
+                    }else{
+                         return response()->json(['data'=> $childs], 200);
+                    }
+        }else{
+             return response()->json(['code' => 409, 'message' => 'No hay Locaciones'], 409);
+        }
+        
     }
 
     /**
@@ -75,7 +79,11 @@ class LocationController extends Controller
        
         $result = Location::like('slug', $slug)->get();
         
-        return $result;
+        if(sizeof($result))
+            return response()->json(['data'=> $result], 200);
+        else
+            return response()->json(['code' => 409, 'message' => 'Sin coincidencias'], 409);
+
     }
 
     /**
@@ -86,11 +94,21 @@ class LocationController extends Controller
      */
     public function destroy($id)
     {
-        $ids = Location::parent($id)->renderAsArray();
+        $existe = Location::where("id","=", $id)->first();
 
-        foreach($ids as $key=>$value) {
-            Location::destroy($ids[$key]['id']); //delete childs
+        if($existe){
+
+            $ids = Location::parent($id)->renderAsArray();
+
+            foreach($ids as $key=>$value) {
+                Location::destroy($ids[$key]['id']); //delete childs
+            }
+            Location::destroy($id); //delete parent
+
+            return response()->json(['message' => 'Locación Borrada con exito', 'code' => 200], 200);
+
+        }else{
+            return response()->json(['code' => 409, 'message' => 'Locacion no existe'], 409);
         }
-        Location::destroy($id); //delete parent
     }
 }
