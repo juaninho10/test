@@ -34,14 +34,39 @@ Crear y configurar una Base de Datos
 Ejecutar las Migraciones y arrancar el servidor http://localhost:8000/
 
 - $ php artisan migrate
+- $ php artisan db:seed (Crea un usuario en la BDD para la autenticacion y pruebas)
+```
+email: usuario@bondacom.com
+password: 123456
+
+```
 - $ php artisan serve
 
 
 ## API
 
-El proyecto consta de 6 rutas de las cuales 2 necesitan autenticación.
+El proyecto consta de 6 rutas de las cuales 2 necesitan autenticación (Crear y Borrar localizaciones).
 
-## 1. Agregar una localización.
+## 1. Autenticación.
+
+Para poder autenticarse el usuario debe estar creado en la base de datos.
+
+#### http://localhost:8000/api/login
+
+Parametro obligatorios
+
+```
+email
+password
+```
+El email y el password envíados a esta ruta generan un token para un usuario previamente cargado en la base de datos.
+
+Una vez generado el token se envía en los Headers con la petición, como por ejemplo:
+
+Authorization Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvbG9naW4iLCJpYXQiOjE1MjI0NDYxMjMsImV4cCI6MTUyMjQ0OTcyMywibmJmIjoxNTIyNDQ2MTIzLCJqdGkiOiJ2dUEweVlidll2bnJKRTkzIn0.3sAIqpL7hXXoSTAvW7pm5nnmtaUo85UQX55M90lplMU
+
+
+## 2. Agregar una localización.
 
 Requiere autenticación
 
@@ -75,7 +100,7 @@ Así se vería este arbol de ejemplo
 
 ![Alt text](/public/img/locationsTree.png)
 
-## 2. Mostrar todas las localizaciónes.
+## 3. Mostrar todas las localizaciónes.
 
 No Requiere autenticación
 
@@ -83,7 +108,7 @@ No Requiere autenticación
 
 Retorna un arbol con todas las localizaciones.
 
-## 3. Buscar localizaciónes por nombre.
+## 4. Buscar localizaciónes por nombre.
 
 No Requiere autenticación
 
@@ -95,13 +120,13 @@ Parametro obligatorios
 slug: (texto)
 
 ```
-Retorna las localizaciones coincidentes con la cadena de texto "Slug".
+Retorna las localizaciones con nombres coincidentes con la cadena de texto "Slug".
 
-## 4. Obtener hijos de una localización.
+## 5. Obtener hijos de una localización.
 
 No Requiere autenticación
 
-#### http://localhost:8000/api/search/{id}
+#### http://localhost:8000/api/childs/{id}
 
 Parametro obligatorios
 
@@ -110,7 +135,7 @@ Id: (Númerico)
 ```
 Retorna los hijos de una localización existente con un Id conocido.
 
-## 5. Borrar una localización.
+## 6. Borrar una localización.
 
 Requiere autenticación
 
@@ -123,25 +148,6 @@ Id: (Númerico)
 
 ```
 Elimina la localización y los hijos de una localización existente con un Id conocido.
-
-## 6. Autenticación.
-
-Para poder autenticarse el usuario debe estar creado en la base de datos.
-
-#### http://localhost:8000/api/login
-
-Parametro obligatorios
-
-```
-email
-password
-```
-El email y el password envíados a esta ruta generan un token para un usuario previamente cargado en la base de datos.
-
-Una vez generado el token se envía en los Headers como por ejemplo:
-
-Authorization Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hcGkvbG9naW4iLCJpYXQiOjE1MjI0NDYxMjMsImV4cCI6MTUyMjQ0OTcyMywibmJmIjoxNTIyNDQ2MTIzLCJqdGkiOiJ2dUEweVlidll2bnJKRTkzIn0.3sAIqpL7hXXoSTAvW7pm5nnmtaUo85UQX55M90lplMU
-
 
 
 ## Authors

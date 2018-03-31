@@ -16,10 +16,10 @@ class LocationController extends Controller
     {
         $locations = Location::nested()->get();
 
-        if(!$locations){
-            return response()->json(['code' => 204, 'message' => 'No hay Locaciones'], 204);
-        }
-        return response()->json(['data'=> $locations], 200);
+         if(!$locations){
+             return response()->json(['code' => 409, 'message' => 'No hay Locaciones'], 409);
+         }else
+             return response()->json(['data'=> $locations], 200);
 
     }
 
