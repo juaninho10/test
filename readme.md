@@ -1,6 +1,6 @@
-# Test Bondacom
+# Test
 
-API REST para administrar un arbol de localizaciones de Bondacom.
+API REST para administrar un arbol de localizaciones.
 
 ## Inicio
 
@@ -21,7 +21,7 @@ Este proyecto fue desarrollado en Laravel 5.4 y MySql.
 
 Clonar el repositorio
 
-- $ git clone https://github.com/juaninho10/test-bondacom.git
+- $ git clone https://github.com/juaninho10/test.git
 
 Instalar Composer
 
@@ -36,7 +36,7 @@ Ejecutar las Migraciones y arrancar el servidor http://localhost:8000/
 - $ php artisan migrate
 - $ php artisan db:seed (Crea un usuario en la BDD para la autenticacion y pruebas)
 ```
-email: usuario@bondacom.com
+email: usuario@localhost.com
 password: 123456
 
 ```
